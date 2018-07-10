@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js",
-    "build": "webpack"
+    "build": "webpack --watch-poll"
   },
   "repository": {
     "type": "git",

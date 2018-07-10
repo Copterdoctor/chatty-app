@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar.jsx';
 import ChatWindow from './Chat-Window.jsx';
-import Footer from './Footer.jsx';
+
 
 class App extends Component {
   render() {
@@ -10,7 +10,6 @@ class App extends Component {
 
         <Navbar />
         <ChatWindow />
-        <Footer />
 
       </div>
     );
