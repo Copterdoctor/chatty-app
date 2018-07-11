@@ -51,6 +51,7 @@ class ChatWindow extends Component {
     this.state = {
       messages: [],
     }
+    this.socket = new WebSocket(`ws://localhost:3001/`);
     this.newMessage = this.newMessage.bind(this);
   }
 
@@ -58,6 +59,14 @@ class ChatWindow extends Component {
     this.setState({
       messages: messages
     })
+
+    this.socket.onopen = (evt) => {
+      console.log('Connected to socket!', evt);
+    }
+
+    this.socket.onmessage = (message) => {
+      console.log(message);
+    }
   }
 
   newMessage(message) {
@@ -69,10 +78,9 @@ class ChatWindow extends Component {
       content: message.content,
       username: message.username
     };
-    console.log(oldMessages);
-
     const newMessages = [...oldMessages, newMessageObj];
     this.setState({ messages: newMessages });
+    // this.socket.send(JSON.stringify(newMessages));
   }
 
   render() {
