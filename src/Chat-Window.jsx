@@ -5,44 +5,15 @@ import { generateRandomId } from './helpers/RandomNumber';
 
 const messages = [
   {
-    id: generateRandomId(),
+    id: "Welcome1",
     type: "incomingMessage",
-    content: "I won't be impressed with technology until I can download food.",
-    username: "Anonymous1"
+    content: "WELCOME TO CHATTY APP",
+    username: "CHATTY APP"
   },
   {
-    id: generateRandomId(),
+    id: "Notification1",
     type: "incomingNotification",
     content: "Anonymous1 changed their name to nomnom",
-  },
-  {
-    id: generateRandomId(),
-    type: "incomingMessage",
-    content: "I wouldn't want to download Kraft Dinner. I'd be scared of cheese packet loss.",
-    username: "Anonymous2"
-  },
-  {
-    id: generateRandomId(),
-    type: "incomingMessage",
-    content: "...",
-    username: "nomnom"
-  },
-  {
-    id: generateRandomId(),
-    type: "incomingMessage",
-    content: "I'd love to download a fried egg, but I'm afraid encryption would scramble it",
-    username: "Anonymous2"
-  },
-  {
-    id: generateRandomId(),
-    type: "incomingMessage",
-    content: "This isn't funny. You're not funny",
-    username: "nomnom"
-  },
-  {
-    id: generateRandomId(),
-    type: "incomingNotification",
-    content: "Anonymous2 changed their name to NotFunny",
   },
 ]
 class ChatWindow extends Component {
@@ -73,7 +44,7 @@ class ChatWindow extends Component {
   newMessage(message) {
 
     const newMessageObj = {
-      id: generateRandomId(),
+      id: '',
       type: message.type,
       content: message.content,
       username: message.username
