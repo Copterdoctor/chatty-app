@@ -53,6 +53,7 @@ class ChatWindow extends Component {
     }
     this.socket = new WebSocket(`ws://localhost:3001/`);
     this.newMessage = this.newMessage.bind(this);
+    this.receivedNewMessage = this.receivedNewMessage.bind(this);
   }
 
   componentDidMount() {
@@ -61,26 +62,31 @@ class ChatWindow extends Component {
     })
 
     this.socket.onopen = (evt) => {
-      console.log('Connected to socket!', evt);
+      console.log('Connected to socket!');
     }
 
-    this.socket.onmessage = (message) => {
-      console.log(message);
+    this.socket.onmessage = (event) => {
+      this.receivedNewMessage(event.data);
     }
   }
 
   newMessage(message) {
 
-    const oldMessages = this.state.messages;
     const newMessageObj = {
       id: generateRandomId(),
       type: message.type,
       content: message.content,
       username: message.username
     };
-    const newMessages = [...oldMessages, newMessageObj];
+
+    this.socket.send(JSON.stringify(newMessageObj));
+  }
+
+  receivedNewMessage(message) {
+    const newMessage = JSON.parse(message);
+    const oldMessages = this.state.messages;
+    const newMessages = [...oldMessages, newMessage];
     this.setState({ messages: newMessages });
-    // this.socket.send(JSON.stringify(newMessages));
   }
 
   render() {
