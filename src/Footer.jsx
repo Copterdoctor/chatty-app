@@ -27,6 +27,7 @@ class Footer extends Component {
     if (evt.keyCode == 13 && evt.shiftKey == false) {
       evt.preventDefault();
       const messageObj = {
+        type: "incomingMessage",
         username: this.state.username,
         content: this.state.text
       }
