@@ -75,9 +75,12 @@ class ChatWindow extends Component {
         this.setState({
           color: newData.color
         })
-
+        break;
+      case "image":
+        this.chatMessageHandler(newData);
         break;
       default:
+        console.log('Unable to determin type of received mesasage');
         break;
     }
   }
@@ -100,6 +103,7 @@ class ChatWindow extends Component {
         <div className={message.type} key={message.id}>
           <span className="message-username" style={{ color: message.color }}>{message.username}</span>
           <span className="message-content">{message.content}</span>
+          <span className="message-content" style={{ "width": "50%" }}>{message.url && <img src={message.url} alt="Image" />}</span>
         </div>
       )
     })

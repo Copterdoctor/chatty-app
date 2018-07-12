@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+const defaultSrc =
+  'https://funnygoblin.com/wp-content/uploads/2017/07/Meme-Flashback-These-Are-The-Best-Memes-From-The-Decade-2000-2010.jpg';
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -7,12 +8,14 @@ class Footer extends Component {
       defaultUsername: 'Anon',
       username: '',
       text: '',
-      user: ''
+      user: '',
+      src: defaultSrc
     }
     this.onUser = this.onUser.bind(this);
     this.onText = this.onText.bind(this);
     this.onTextEnterPress = this.onTextEnterPress.bind(this);
     this.onNameEnterPress = this.onNameEnterPress.bind(this);
+    this.handleEnterPress = this.handleEnterPress.bind(this);
   }
 
   onUser(evt) {
@@ -60,6 +63,16 @@ class Footer extends Component {
       this.props.newMessage(messageObj);
     }
   }
+
+  handleEnterPress = event => {
+    if (event.key === 'Enter') {
+      event.target.select();
+      this.setState({
+        src: event.target.value
+      });
+    }
+  };
+
 
   render() {
 
