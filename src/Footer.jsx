@@ -4,17 +4,20 @@ class Footer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      defaultUsername: 'Anon',
       username: '',
-      text: ''
+      text: '',
+      user: ''
     }
     this.onUser = this.onUser.bind(this);
     this.onText = this.onText.bind(this);
-    this.onEnterPress = this.onEnterPress.bind(this);
+    this.onTextEnterPress = this.onTextEnterPress.bind(this);
+    this.onNameEnterPress = this.onNameEnterPress.bind(this);
   }
 
   onUser(evt) {
     this.setState({
-      username: evt.target.value
+      user: evt.target.value
     });
   }
 
@@ -23,19 +26,38 @@ class Footer extends Component {
       text: evt.target.value
     });
   }
-  onEnterPress = (evt) => {
+  onTextEnterPress = (evt) => {
     if (evt.keyCode == 13 && evt.shiftKey == false) {
       evt.preventDefault();
       const messageObj = {
-        type: "incomingMessage",
-        username: this.state.username,
+        type: 'incomingMessage',
+        username: (this.state.username || this.state.defaultUsername),
         content: this.state.text
       }
       this.props.newMessage(messageObj);
       this.setState({
-        text: ""
+        text: ''
+      })
+    }
+  }
+
+  onNameEnterPress = (evt) => {
+    if (evt.keyCode == 13 && evt.shiftKey == false) {
+      evt.preventDefault();
+      const previousUserName = (this.state.username || this.state.defaultUsername);
+      const notification = `User ${previousUserName} changed their name to ${this.state.user}`;
+
+      const messageObj = {
+        type: 'incomingNotification',
+        content: notification
+      }
+
+      this.setState({
+        username: this.state.user
       })
 
+      //Broadcast name change
+      this.props.newMessage(messageObj);
     }
   }
 
@@ -43,8 +65,8 @@ class Footer extends Component {
 
     return (
       <footer className="chatbar">
-        <textarea className="chatbar-username" placeholder="Your Name (Optional)" value={this.state.username} onChange={this.onUser} />
-        <textarea className="chatbar-message" placeholder="Type a message and hit ENTER" value={this.state.text} onChange={this.onText} onKeyDown={this.onEnterPress} />
+        <textarea className="chatbar-username" placeholder="Your Name (Optional)" rows="1" value={this.state.user} onChange={this.onUser} onKeyDown={this.onNameEnterPress} />
+        <textarea className="chatbar-message" placeholder="Type a message and hit ENTER" value={this.state.text} onChange={this.onText} onKeyDown={this.onTextEnterPress} />
       </footer>
     )
   }

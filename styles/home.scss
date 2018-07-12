@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
-
 body {
   background: white;
   color: black;
@@ -32,10 +31,14 @@ body {
 
 .chatbar-message {
   flex: 8;
+  resize: none;
 }
 
 .chatbar-username {
   flex: 2;
+  resize: none;
+  white-space: nowrap;
+  overflow-x: scroll;
 }
 
 .message {
