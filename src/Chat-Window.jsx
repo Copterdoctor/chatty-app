@@ -60,6 +60,7 @@ class ChatWindow extends Component {
 
   receivedNewMessage(data) {
     const newData = JSON.parse(data);
+    console.log(newData);
 
     switch (newData.type) {
       case "incomingMessage":
@@ -103,7 +104,7 @@ class ChatWindow extends Component {
         <div className={message.type} key={message.id}>
           <span className="message-username" style={{ color: message.color }}>{message.username}</span>
           <span className="message-content">{message.content}</span>
-          <span className="message-content" style={{ "width": "50%" }}>{message.url && <img src={message.url} alt="Image" />}</span>
+          {message.url && <img style={{ "height": "25vh" }} src={message.url} alt={`Img url entered was ${message.url}`} />}
         </div>
       )
     })

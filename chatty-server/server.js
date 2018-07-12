@@ -14,7 +14,7 @@ const server = express()
   .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`));
 
 const wss = new SocketServer({ server });
-const re = /([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|svg))/i;
+const re = /(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/i;
 
 function incoming(incomingMessage) {
   let message = JSON.parse(incomingMessage);
