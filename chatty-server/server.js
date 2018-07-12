@@ -18,20 +18,50 @@ const server = express()
 const wss = new SocketServer({ server });
 
 function incoming(incomingMessage) {
-  let message = JSON.parse(incomingMessage)
+  let message = JSON.parse(incomingMessage);
   message.id = uuidv4();
   message = JSON.stringify(message);
   wss.clients.forEach((client) => {
-    client.send(message);
+    try {
+      client.send(message);
+    } catch (error) {
+      console.log(`Message failed to send.................${error}`);
+    }
+  })
+}
+
+let numOfUsers = {
+  type: 'userCountUpdate',
+  count: 0
+}
+
+function userCountChange(num) {
+  numOfUsers.count += num;
+  let message = JSON.stringify(numOfUsers)
+  wss.clients.forEach((client) => {
+    try {
+      client.send(message);
+    } catch (error) {
+      console.log(`Message failed to send.................\n${error}`);
+    }
   })
 }
 
 wss.on('connection', (ws) => {
-  console.log('Client connected');
-  ws.on('message', incoming);
+  userCountChange(1);
+  console.log(`User Count = ${numOfUsers.count}`);
 
-  // ws.send('Welcome to Chatty-App');
+  ws.on('message', incoming);
+  try {
+    ws.send(JSON.stringify(numOfUsers));
+  } catch (error) {
+    console.log(`Unable to send userNumber to new connection.......\n${error}`);
+
+  }
 
   // Set up a callback for when a client closes the socket.
-  ws.on('close', () => console.log('Client disconnected'));
+  ws.on('close', () => {
+    userCountChange(-1)
+    console.log(`User Count = ${numOfUsers.count}`);
+  });
 });

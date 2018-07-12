@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Footer from './Footer.jsx';
-import { generateRandomId } from './helpers/RandomNumber';
+import Navbar from './Navbar.jsx';
 
 
 const messages = [
@@ -21,10 +21,13 @@ class ChatWindow extends Component {
     super(props);
     this.state = {
       messages: [],
+      userCount: 0
     }
     this.socket = new WebSocket(`ws://localhost:3001/`);
     this.newMessage = this.newMessage.bind(this);
     this.receivedNewMessage = this.receivedNewMessage.bind(this);
+    this.chatMessageHandler = this.chatMessageHandler.bind(this);
+    this.userCountHandler = this.userCountHandler.bind(this);
   }
 
   componentDidMount() {
@@ -53,11 +56,36 @@ class ChatWindow extends Component {
     this.socket.send(JSON.stringify(newMessageObj));
   }
 
-  receivedNewMessage(message) {
-    const newMessage = JSON.parse(message);
+  receivedNewMessage(data) {
+    const newData = JSON.parse(data);
+    console.log(newData.type);
+
+    switch (newData.type) {
+      case "incomingMessage":
+        this.chatMessageHandler(newData);
+        break;
+      case "incomingNotification":
+        this.chatMessageHandler(newData);
+        break;
+      case "userCountUpdate":
+        this.userCountHandler(newData);
+        break;
+      default:
+        break;
+    }
+  }
+
+  chatMessageHandler(message) {
     const oldMessages = this.state.messages;
-    const newMessages = [...oldMessages, newMessage];
+    const newMessages = [...oldMessages, message];
     this.setState({ messages: newMessages });
+  }
+
+  userCountHandler(message) {
+    console.log(message.count);
+    this.setState({
+      userCount: message.count
+    })
   }
 
   render() {
@@ -71,6 +99,7 @@ class ChatWindow extends Component {
     })
     return (
       <main className="messages">
+        <Navbar userCount={this.state.userCount} />
         {chatMessages}
         <Footer newMessage={this.newMessage} />
       </main>
