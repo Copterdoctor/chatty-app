@@ -25,6 +25,7 @@ function incoming(incomingMessage) {
       id: message.id,
       type: 'image',
       username: message.username,
+      color: message.color,
       url: imgUrl[0]
     }
     message = JSON.stringify(imgObj);
