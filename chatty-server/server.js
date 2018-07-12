@@ -3,6 +3,7 @@
 const express = require('express');
 const SocketServer = require('ws').Server;
 const uuidv4 = require('uuid/v4');
+const randomColor = require('randomcolor');
 
 
 const PORT = 3001;
@@ -35,6 +36,14 @@ let numOfUsers = {
   count: 0
 }
 
+function newUser(ws) {
+  const color = randomColor({
+    luminosity: 'bright',
+    format: 'rgb' // e.g. 'rgb(225,200,20)'
+  });
+  ws.send(JSON.stringify({ type: 'newConnection', color: color }));
+}
+
 function userCountChange(num) {
   numOfUsers.count += num;
   let message = JSON.stringify(numOfUsers)
@@ -49,8 +58,7 @@ function userCountChange(num) {
 
 wss.on('connection', (ws) => {
   userCountChange(1);
-  console.log(`User Count = ${numOfUsers.count}`);
-
+  newUser(ws);
   ws.on('message', incoming);
   try {
     ws.send(JSON.stringify(numOfUsers));

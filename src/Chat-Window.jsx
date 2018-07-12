@@ -21,7 +21,8 @@ class ChatWindow extends Component {
     super(props);
     this.state = {
       messages: [],
-      userCount: 0
+      userCount: 0,
+      color: "black"
     }
     this.socket = new WebSocket(`ws://localhost:3001/`);
     this.newMessage = this.newMessage.bind(this);
@@ -50,7 +51,8 @@ class ChatWindow extends Component {
       id: '',
       type: message.type,
       content: message.content,
-      username: message.username
+      username: message.username,
+      color: this.state.color
     };
 
     this.socket.send(JSON.stringify(newMessageObj));
@@ -58,7 +60,6 @@ class ChatWindow extends Component {
 
   receivedNewMessage(data) {
     const newData = JSON.parse(data);
-    console.log(newData.type);
 
     switch (newData.type) {
       case "incomingMessage":
@@ -69,6 +70,12 @@ class ChatWindow extends Component {
         break;
       case "userCountUpdate":
         this.userCountHandler(newData);
+        break;
+      case "newConnection":
+        this.setState({
+          color: newData.color
+        })
+
         break;
       default:
         break;
@@ -82,7 +89,6 @@ class ChatWindow extends Component {
   }
 
   userCountHandler(message) {
-    console.log(message.count);
     this.setState({
       userCount: message.count
     })
@@ -92,7 +98,7 @@ class ChatWindow extends Component {
     const chatMessages = this.state.messages.map((message) => {
       return (
         <div className={message.type} key={message.id}>
-          <span className="message-username">{message.username}</span>
+          <span className="message-username" style={{ color: message.color }}>{message.username}</span>
           <span className="message-content">{message.content}</span>
         </div>
       )
@@ -108,9 +114,3 @@ class ChatWindow extends Component {
 }
 
 export default ChatWindow;
-
-
-// Cut from boilerplate code
-//   < div class="message system" >
-//     Anonymous1 changed their name to nomnom.
-//         </div >

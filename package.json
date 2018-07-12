@@ -43,6 +43,7 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "randomcolor": "^0.5.3",
     "react": "16.4.1",
     "react-dom": "16.4.1",
     "react-retro-hit-counter": "^1.0.1",
