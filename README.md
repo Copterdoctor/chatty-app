@@ -7,6 +7,10 @@ Chatty App is a minamalist real time chat application concept using WebSockets.
 To get started
 
 Git Clone https://github.com/Copterdoctor/chatty-app.git
+* For those who want a little extra flair to their experience you may be interested in checking out the matrix branch
+
+```$ Git checkout matrix ```
+
 ```js
 $ cd chatty-app
 
