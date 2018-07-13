@@ -28,7 +28,7 @@ $ npm start
 
 Goto http://localhost:3000 and enjoy!
 
-You can open multiple windows on localhost to simulate other users or if your computer allows other users should be able to connect via your computers local lan address at port 3000.
+You can open multiple windows on localhost to simulate other users or if your computer firewall allows for it, other users should be able to connect via your computers local lan address at port 3000.
 
 
 ### Dependencies
