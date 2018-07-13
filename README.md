@@ -7,15 +7,24 @@ Chatty App is a minamalist real time chat application concept using WebSockets.
 To get started
 
 Git Clone https://github.com/Copterdoctor/chatty-app.git
+
 cd chatty-app
+
 npm install
+
 npm run build
+
 npm start
 
+
 Open a second terminal window to start sockets server
+
 cd /chatty-app/chatty-server
+
 npm install
+
 npm start
+
 
 Goto http://localhost:3000 and enjoy!
 
