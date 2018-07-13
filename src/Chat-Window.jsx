@@ -19,7 +19,7 @@ class ChatWindow extends Component {
       userCount: 0,
       color: "black"
     }
-    this.socket = new WebSocket(`ws://localhost:3001/`);
+    this.socket = new WebSocket(`ws://${window.location.hostname}:3001/`);
     this.newMessage = this.newMessage.bind(this);
     this.receivedNewMessage = this.receivedNewMessage.bind(this);
     this.chatMessageHandler = this.chatMessageHandler.bind(this);
