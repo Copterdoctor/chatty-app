@@ -7,7 +7,7 @@ const messages = [
   {
     id: "Welcome1",
     type: "incomingMessage",
-    content: "WELCOME TO CHATTY APP",
+    content: "WELCOME TO THE CHATTY APP MATRIX",
     username: "CHATTY APP"
   }
 ]
@@ -106,7 +106,9 @@ class ChatWindow extends Component {
     return (
       <main className="messages">
         <Navbar userCount={this.state.userCount} />
-        {chatMessages}
+        <section className="messageWindow">
+          {chatMessages}
+        </section>
         <Footer newMessage={this.newMessage} />
       </main>
     )

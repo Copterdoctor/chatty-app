@@ -13,7 +13,7 @@ const YourComponent = (props) => (
     digitSpacing={3}
     segmentThickness={4}
     segmentSpacing={0.5}
-    segmentActiveColor="#0"
+    segmentActiveColor="white"
     segmentInactiveColor="none"
     backgroundColor="none"
     borderThickness={0}
