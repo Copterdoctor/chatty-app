@@ -9,12 +9,7 @@ const messages = [
     type: "incomingMessage",
     content: "WELCOME TO CHATTY APP",
     username: "CHATTY APP"
-  },
-  {
-    id: "Notification1",
-    type: "incomingNotification",
-    content: "Anonymous1 changed their name to nomnom",
-  },
+  }
 ]
 class ChatWindow extends Component {
   constructor(props) {

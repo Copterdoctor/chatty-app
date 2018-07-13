@@ -65,7 +65,7 @@ class Footer extends Component {
     return (
       <footer className="chatbar">
         <textarea className="chatbar-username" placeholder="Your Name and ENTER" rows="1" value={this.state.user} onChange={this.onUser} onKeyDown={this.onNameEnterPress} />
-        <textarea className="chatbar-message" placeholder="Type a message and hit ENTER" value={this.state.text} onChange={this.onText} onKeyDown={this.onTextEnterPress} />
+        <textarea className="chatbar-message" placeholder="Type a message or enter picture URL and hit ENTER" value={this.state.text} onChange={this.onText} onKeyDown={this.onTextEnterPress} />
       </footer>
     )
   }
