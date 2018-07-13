@@ -32,7 +32,7 @@ class ChatWindow extends Component {
     })
 
     this.socket.onopen = (evt) => {
-      console.log('Connected to socket!');
+      console.log('Connected to Chatty App socket!');
     }
 
     this.socket.onmessage = (event) => {
@@ -55,7 +55,6 @@ class ChatWindow extends Component {
 
   receivedNewMessage(data) {
     const newData = JSON.parse(data);
-    console.log(newData);
 
     switch (newData.type) {
       case "incomingMessage":
